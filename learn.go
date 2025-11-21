@@ -5,7 +5,7 @@ import "fmt"
 type Person struct {
 		Name string
 		Age  int
-	// 	func greet() {
+	// 	func greeting() {
 	// 	fmt.Println("Hello!")
 	// }
 }
@@ -72,10 +72,10 @@ func main() {
 	p := Person{Name: "David", Age: 30}
 	fmt.Println("Struct:", p)
 	// functions
-	greet := func() {
+	greeting := func() {
 		fmt.Println("Hello from a function!")
 	}
-	greet()
+	greeting()
 
 	// pointers
 	var num int = 42
@@ -117,4 +117,115 @@ func main() {
 	for i := 1; i <= 5; i++ {
 		fmt.Println("Iteration:", i)
 	}
+
+	// range loop
+	for index, value := range numSlice {
+		fmt.Printf("Index: %d, Value: %d\n", index, value)
+	}
+	//while loop equivalent
+	count := 1
+	for count <= 5 {
+		fmt.Println("Count:", count)
+		count++
+	}
+
+	// infinite loop without break
+	// for {
+	// 	fmt.Println("This will run forever")
+	// }
+
+	// infinite loop with break
+	for {
+		fmt.Println("This will run once")
+		break
+	}
+
+
+	// functions
+	
+	greet("Alice")
+	
+	result := add(5, 10)
+	fmt.Println("Addition Result:", result)
+
+	total := sum(15, 25)
+	fmt.Println("Sum Result:", total)
+
+	quotient, err := divide(10, 2)
+	if err != nil {
+		fmt.Println("Error:", err)
+	} else {
+		fmt.Println("Division Result:", quotient)
+	}
+
+	mult := multiply(2, 3, 4, 5, 8, 55, 90, 66)
+	fmt.Println("Multiplication Result:", mult)
+
+	closureCounter := makeCounter()
+	fmt.Println("Closure Counter:", closureCounter())
+	fmt.Println("Closure Counter:", closureCounter())
+	fmt.Println("Closure Counter:", closureCounter())
+
+	multiplyResult := func (a int) func(int) int {
+		return func (b int) int {
+			return a * b
+		}	
+	}(5)(6)
+
+	fmt.Println("Multiply Result from nested anonymous function:", multiplyResult)
+
+	sol := Multiplier(3)
+	fmt.Println("Multiplier Result:", sol(10))
+
 }
+
+func greet(name string) {
+	fmt.Printf("Hello, %s!\n", name)
+}
+
+func add(a, b int) int {
+		return a + b
+	}
+
+func sum(a int, b int) int {
+	return a + b
+}
+
+func divide(a, b float64) (float64, error) {
+	if b == 0 {
+		return 0, fmt.Errorf("division by zero")
+	}
+	return a / b, nil
+}
+
+// func with arbitrary number of arguments
+func multiply(factors ...int) int {  // variadic function
+	result := 1
+	for _, factor := range factors {  // _ is used to ignore the index
+		result *= factor
+	}
+	return result
+}
+
+// anonymous function example
+var anonymousFunc = func(msg string) {
+	fmt.Println(msg)
+}
+
+// closure example
+func makeCounter() func() int {
+	count := 0	
+	return func() int {
+		count++
+		return count
+	}
+}
+
+func Multiplier(factor int) func(int) int {
+    return func(n int) int {
+        return n * factor
+    }
+}
+
+
+
